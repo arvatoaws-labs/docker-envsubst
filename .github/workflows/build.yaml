@@ -8,8 +8,8 @@ on:
     - main
     tags:
     - 'v*'
-  schedule:
-  - cron: '30 12 * * *'
+  # schedule:
+  # - cron: '30 12 * * *'
 
 jobs:
   arm64:
