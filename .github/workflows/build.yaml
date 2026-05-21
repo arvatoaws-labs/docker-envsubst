@@ -6,6 +6,8 @@ on:
     branches:
     - dev
     - main
+    tags:
+    - 'v*'
   schedule:
   - cron: '30 12 * * *'
 
@@ -41,7 +43,7 @@ jobs:
           type=raw,value=dev
     - name: Docker meta Prod
       id: meta-arm64-prod
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
       uses: docker/metadata-action@v5
       with:
         images: ghcr.io/arvatoaws-labs/asy-envsubst
@@ -66,7 +68,7 @@ jobs:
     - name: Build and Push Latest
       id: build-arm64-prod
       uses: docker/build-push-action@v6
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
       with:
         push: true
         pull: true
@@ -116,7 +118,7 @@ jobs:
           type=raw,value=dev
     - name: Docker meta Prod
       id: meta-amd64-prod
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
       uses: docker/metadata-action@v5
       with:
         images: ghcr.io/arvatoaws-labs/asy-envsubst
@@ -135,7 +137,7 @@ jobs:
     - name: Build and Push Latest
       id: build-amd64-prod
       uses: docker/build-push-action@v6
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
       with:
         push: true
         pull: true
@@ -176,7 +178,7 @@ jobs:
           type=raw,value=dev
     - name: Docker meta Prod
       id: meta-prod
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
       uses: docker/metadata-action@v5
       with:
         images: ghcr.io/arvatoaws-labs/asy-envsubst
@@ -210,7 +212,7 @@ jobs:
     - name: Create Docker Manifest for Prod
       uses: int128/docker-manifest-create-action@v2
       id: build-prod
-      if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
       with:
         index-annotations: ${{ steps.meta-prod.outputs.labels }}
         tags: ${{ steps.meta-prod.outputs.tags }}
