@@ -1,12 +1,12 @@
 # docker-envsubst
 
-Kleines Docker-Image auf Basis von Alpine, das `envsubst` (aus `gettext`) bereitstellt.
+Small Docker image based on Alpine that provides `envsubst` from `gettext`.
 
-## Inhalt
+## Contents
 
-- Base Image: `public.ecr.aws/docker/library/alpine`
-- Paket: `gettext`
-- Standardkommando: `envsubst --help`
+- Base image: `public.ecr.aws/docker/library/alpine`
+- Package: `gettext`
+- Default command: `envsubst --help`
 
 ## Build
 
